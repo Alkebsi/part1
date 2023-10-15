@@ -1,7 +1,27 @@
 import { useState } from 'react';
 
 const Statistics = (props) => {
-  return <p>{props.text} {props.value} {props.extra}</p>
+  return (
+    <p>
+      {props.text} {props.value} {props.extra}
+    </p>
+  );
+};
+
+const DisplayStatistics = (props) => {
+  if (props.all === 0) {
+    return <p>No feedback given</p>
+  }
+  return (
+    <>
+      <Statistics text="good" value={props.good} />
+      <Statistics text="neutral" value={props.neutral} />
+      <Statistics text="bad" value={props.bad} />
+      <Statistics text="all" value={props.all} />
+      <Statistics text="average" value={props.average} />
+      <Statistics text="positive" value={props.positive} extra="%" />
+    </>
+  );
 };
 
 const App = () => {
@@ -47,13 +67,7 @@ const App = () => {
       </button>
 
       <h1>statistics</h1>
-
-      <Statistics text="good" value={good} />
-      <Statistics text="neutral" value={neutral} />
-      <Statistics text="bad" value={bad} />
-      <Statistics text="all" value={all} />
-      <Statistics text="average" value={average} />
-      <Statistics text="positive" value={positive} extra="%" />
+      <DisplayStatistics good={good} neutral={neutral} bad={bad} all={all} average={average} positive={positive} />
     </div>
   );
 };
