@@ -6,9 +6,12 @@ const Button = ({ handleClick, text }) => {
 
 const StatisticsLine = (props) => {
   return (
-    <p>
-      {props.text} {props.value} {props.extra}
-    </p>
+    <tr>
+      <td>{props.text}</td>
+      <td>
+        {props.value} {props.extra}
+      </td>
+    </tr>
   );
 };
 
@@ -18,14 +21,16 @@ const Statistics = (props) => {
   }
 
   return (
-    <>
-      <StatisticsLine text="good" value={props.good} />
-      <StatisticsLine text="neutral" value={props.neutral} />
-      <StatisticsLine text="bad" value={props.bad} />
-      <StatisticsLine text="all" value={props.all} />
-      <StatisticsLine text="average" value={props.average} />
-      <StatisticsLine text="positive" value={props.positive} extra="%" />
-    </>
+    <table>
+      <tbody>
+        <StatisticsLine text="good" value={props.good} />
+        <StatisticsLine text="neutral" value={props.neutral} />
+        <StatisticsLine text="bad" value={props.bad} />
+        <StatisticsLine text="all" value={props.all} />
+        <StatisticsLine text="average" value={props.average} />
+        <StatisticsLine text="positive" value={props.positive} extra="%" />
+      </tbody>
+    </table>
   );
 };
 
