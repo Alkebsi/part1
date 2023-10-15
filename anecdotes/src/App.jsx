@@ -1,5 +1,31 @@
 import { useState } from 'react';
 
+const Best = ({ votes, anecdotes }) => {
+  const [best, setBest] = useState([0, 0]);
+  const [perviusVote, setPerviusVote] = useState(0);
+  const [bestVote, setBestVote] = useState(0);
+
+  const final = votes.map((vote, index) => {
+    if (vote > perviusVote) {
+      setBest([vote, index]);
+      setPerviusVote(vote);
+      setBestVote(vote);
+    }
+
+    if (vote == bestVote && vote !== 0) {
+      return (
+        <p key={index}>
+          {anecdotes[index]}
+          <br />
+          has {vote} votes
+        </p>
+      );
+    }
+  });
+
+  return final;
+};
+
 const App = () => {
   // Setting random values
   const anecdotes = [
@@ -14,7 +40,6 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
-
   const [votes, setVotes] = useState([0, 0, 0, 0, 0, 0, 0, 0]);
 
   // Button Functions
@@ -31,11 +56,18 @@ const App = () => {
 
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
-      <p>had {votes[selected]} votes</p>
+      <h1>Anecdotes of the day</h1>
+      <p>
+        {anecdotes[selected]}
+        <br />
+        had {votes[selected]} votes
+      </p>
 
       <button onClick={handleVotes}>vote</button>
       <button onClick={handleAnecdotes}>next anecdote</button>
+
+      <h1>Anecdote with most votes</h1>
+      <Best votes={votes} anecdotes={anecdotes} />
     </div>
   );
 };
